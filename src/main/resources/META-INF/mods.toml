@@ -1,0 +1,14 @@
+modLoader="javafml"
+loaderVersion="[44,)"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+license = "All Rights Reserved"
+[[mods]]
+modId="narutomod"
+version="${file.jarVersion}"
+displayName="Naruto Mod"
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+#logoFile="logoFile.png" #optional
+credits="Code by lgow" #optional
+authors="Turgyn" #optional
+description=''''''
