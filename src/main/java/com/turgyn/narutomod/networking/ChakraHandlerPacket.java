@@ -1,8 +1,7 @@
 package com.turgyn.narutomod.networking;
 
-import com.turgyn.narutomod.chackra.ModCapabilityProvider;
+import com.turgyn.narutomod.capabilities.ModCapabilityProvider;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -23,8 +22,10 @@ public class ChakraHandlerPacket {
 		context.enqueueWork(() -> {
 			ServerPlayer player = context.getSender();
 			player.getCapability(ModCapabilityProvider.CHAKRA).ifPresent(chakra -> {
-				if (player.isCrouching() && chakra.getValue() < chakra.MAX_VALUE) {
-					chakra.addValue(1);
+				if (player.isCrouching()){
+					if (chakra.getValue() < chakra.MAX_VALUE){
+						chakra.addValue(1);
+					}
 				}else if(chakra.getValue() > 0) {
 					chakra.subValue(1);
 				}

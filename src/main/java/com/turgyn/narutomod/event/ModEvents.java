@@ -1,8 +1,8 @@
 package com.turgyn.narutomod.event;
 
 import com.turgyn.narutomod.Main;
-import com.turgyn.narutomod.chackra.ModCapabilityProvider;
-import com.turgyn.narutomod.chackra.PlayerChakra;
+import com.turgyn.narutomod.capabilities.ModCapabilityProvider;
+import com.turgyn.narutomod.capabilities.PlayerChakra;
 import com.turgyn.narutomod.networking.ChakraDataSyncPacket;
 import com.turgyn.narutomod.networking.ModPacketHandler;
 import net.minecraft.resources.ResourceLocation;

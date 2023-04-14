@@ -1,4 +1,4 @@
-package com.turgyn.narutomod.chackra;
+package com.turgyn.narutomod.capabilities;
 
 import net.minecraft.nbt.CompoundTag;
 

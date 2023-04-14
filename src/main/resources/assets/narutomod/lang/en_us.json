@@ -1,4 +1,14 @@
 {
   "key.category.narutomod": "Naruto Mod",
-  "key.narutomod.opengui" : "Open GUI"
+  "key.narutomod.opengui" : "Open GUI",
+
+  "creative_tab.narutomod": "Naruto Mod",
+
+  "item.narutomod.earth": "Earth Release",
+  "item.narutomod.wind": "Wind Release",
+  "item.narutomod.water": "Water Release",
+  "item.narutomod.fire": "Fire Release",
+  "item.narutomod.yin": "Yin Release",
+  "item.narutomod.yang": "Yang Release",
+  "item.narutomod.lightning": "Lightning Release"
 }

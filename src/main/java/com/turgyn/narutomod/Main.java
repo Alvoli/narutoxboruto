@@ -2,6 +2,8 @@ package com.turgyn.narutomod;
 
 import com.mojang.logging.LogUtils;
 import com.turgyn.narutomod.event.ClientEvents;
+import com.turgyn.narutomod.items.ModItems;
+import com.turgyn.narutomod.items.ModTab;
 import com.turgyn.narutomod.networking.ModPacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,9 +20,11 @@ public class Main {
 
 	public Main() {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModItems.register(modEventBus);
+		ModTab.register();
+		modEventBus.addListener(this::commonSetup);
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new ClientEvents());
-		modEventBus.addListener(this::commonSetup);
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
