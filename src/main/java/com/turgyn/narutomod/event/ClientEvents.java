@@ -2,9 +2,11 @@ package com.turgyn.narutomod.event;
 
 import com.turgyn.narutomod.Main;
 import com.turgyn.narutomod.client.ModHudOverlays;
-import com.turgyn.narutomod.networking.ChakraHandlerPacket;
+import com.turgyn.narutomod.gui.ShinobiStatsGui;
+import com.turgyn.narutomod.networking.ChakraHandlerC2SPacket;
 import com.turgyn.narutomod.networking.ModPacketHandler;
 import com.turgyn.narutomod.util.ModKeyBinds;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -18,7 +20,13 @@ public class ClientEvents {
 		@SubscribeEvent
 		public static void onKeyInput(InputEvent.Key event) {
 			if (ModKeyBinds.OPEN_GUI.consumeClick()) {
-				ModPacketHandler.sendToServer(new ChakraHandlerPacket());
+				Minecraft minecraft = Minecraft.getInstance();
+				if (!minecraft.player.isCrouching()) {
+					minecraft.setScreen(new ShinobiStatsGui());
+				}
+				else {
+					ModPacketHandler.sendToServer(new ChakraHandlerC2SPacket());
+				}
 			}
 		}
 	}
@@ -32,7 +40,7 @@ public class ClientEvents {
 
 		@SubscribeEvent
 		public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-			event.registerAboveAll("chackra", ModHudOverlays.CHAKRA);
+			event.registerAboveAll("chakra", ModHudOverlays.CHAKRA);
 		}
 	}
 }

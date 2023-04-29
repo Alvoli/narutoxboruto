@@ -15,9 +15,9 @@ public class ModTab {
 
 	@SubscribeEvent
 	public static void registerModTab(CreativeModeTabEvent.Register event) {
-		TAB = event.registerCreativeModeTab(new ResourceLocation(Main.MOD_ID, "narutomod_tab"),
-				builder -> builder.icon(() -> new ItemStack(ModItems.TAB.get()))
-						.title(Component.translatable("creative_tab.narutomod")).build());
+		TAB = event.registerCreativeModeTab(new ResourceLocation(Main.MOD_ID, "narutomod_tab"), builder -> builder.icon(
+						() -> new ItemStack(ModItems.TAB.get())).title(Component.translatable("creative_tab.narutomod"))
+				.build());
 	}
 
 	@SubscribeEvent

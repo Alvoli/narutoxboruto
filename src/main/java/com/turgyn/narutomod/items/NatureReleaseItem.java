@@ -1,8 +1,6 @@
 package com.turgyn.narutomod.items;
 
-import com.turgyn.narutomod.capabilities.ModCapabilityProvider;
-import com.turgyn.narutomod.networking.ChakraDataSyncPacket;
-import com.turgyn.narutomod.networking.ModPacketHandler;
+import com.turgyn.narutomod.capabilities.CapabilityProvider;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -22,12 +20,11 @@ public class NatureReleaseItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 		if (pLevel instanceof ServerLevel server && pPlayer instanceof ServerPlayer serverPlayer) {
-			serverPlayer.getCapability(ModCapabilityProvider.CHAKRA).ifPresent(chakra -> {
+			serverPlayer.getCapability(CapabilityProvider.CHAKRA).ifPresent(chakra -> {
 				if (chakra.getValue() > 0) {
-					chakra.subValue(1);
+					chakra.subValue(1, serverPlayer);
 					server.playSound(null, pPlayer.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS,
 							1.0F, (float) (0.8F + (Math.random() * 0.2D)));
-					ModPacketHandler.sendToPlayer(new ChakraDataSyncPacket(chakra.getValue()), serverPlayer);
 				}
 			});
 			return InteractionResultHolder.success(serverPlayer.getItemInHand(pUsedHand));

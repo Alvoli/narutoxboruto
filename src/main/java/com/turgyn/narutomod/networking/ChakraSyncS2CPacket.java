@@ -1,19 +1,19 @@
 package com.turgyn.narutomod.networking;
 
-import com.turgyn.narutomod.client.ChakraData;
+import com.turgyn.narutomod.client.PlayerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChakraDataSyncPacket {
+public class ChakraSyncS2CPacket {
 	private final int chakra;
 
-	public ChakraDataSyncPacket(int chakra) {
+	public ChakraSyncS2CPacket(int chakra) {
 		this.chakra = chakra;
 	}
 
-	public ChakraDataSyncPacket(FriendlyByteBuf buf) {
+	public ChakraSyncS2CPacket(FriendlyByteBuf buf) {
 		this.chakra = buf.readInt();
 	}
 
@@ -21,11 +21,11 @@ public class ChakraDataSyncPacket {
 		buf.writeInt(chakra);
 	}
 
-	public boolean handle(Supplier<NetworkEvent.Context> supplier) {
+	public void handle(Supplier<NetworkEvent.Context> supplier) {
 		NetworkEvent.Context context = supplier.get();
 		context.enqueueWork(() -> {
-			ChakraData.set(chakra);
+			PlayerData.setChakra(chakra);
+			PlayerData.setCurrentMaxChakra(50);
 		});
-		return true;
 	}
 }
