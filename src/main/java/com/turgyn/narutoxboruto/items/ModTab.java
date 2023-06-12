@@ -1,0 +1,35 @@
+package com.turgyn.narutoxboruto.items;
+
+import com.turgyn.narutoxboruto.Main;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class ModTab {
+	public static CreativeModeTab TAB;
+
+	@SubscribeEvent
+	public static void registerModTab(CreativeModeTabEvent.Register event) {
+		TAB = event.registerCreativeModeTab(new ResourceLocation(Main.MOD_ID, "tab"), builder -> builder.icon(()-> new ItemStack(ModItems.EARTH_RELEASE.get())).withTabsImage(new ResourceLocation(Main.MOD_ID, "textures/gui/tab.png")).build());
+	}
+
+	@SubscribeEvent
+	public static void addItemsToTab(CreativeModeTabEvent.BuildContents event) {
+		if (event.getTab().equals(ModTab.TAB)) {
+			event.accept(ModItems.EARTH_RELEASE.get());
+			event.accept(ModItems.WATER_RELEASE.get());
+			event.accept(ModItems.WIND_RELEASE.get());
+			event.accept(ModItems.FIRE_RELEASE.get());
+			event.accept(ModItems.LIGHTNING_RELEASE.get());
+			event.accept(ModItems.YANG_RELEASE.get());
+			event.accept(ModItems.YIN_RELEASE.get());
+		}
+	}
+
+	public static void register() { }
+}

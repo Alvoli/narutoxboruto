@@ -5,9 +5,9 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "pre-alpha-${mc_version}-${mod_version}"
-group = 'com.turgyn.narutomod'
-archivesBaseName = 'narutomod'
+version = "${mc_version}-${mod_version}"
+group = 'com.turgyn.narutoxboruto'
+archivesBaseName = 'narutoxboruto'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -15,17 +15,17 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 minecraft {
     mappings channel: 'parchment', version: "${pmc_version}-${mc_version}"
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'narutomod'
+            property 'forge.enabledGameTestNamespaces', 'narutoxboruto'
 
             mods {
-                narutomod {
+                narutoxboruto {
                     source sourceSets.main
                 }
             }
@@ -35,10 +35,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'narutomod'
+            property 'forge.enabledGameTestNamespaces', 'narutoxboruto'
 
             mods {
-                narutomod {
+                narutoxboruto {
                     source sourceSets.main
                 }
             }
@@ -48,10 +48,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'narutomod'
+            property 'forge.enabledGameTestNamespaces', 'narutoxboruto'
 
             mods {
-                narutomod {
+                narutoxboruto {
                     source sourceSets.main
                 }
             }
@@ -61,10 +61,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'narutomod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'narutoxboruto', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                narutomod {
+                narutoxboruto {
                     source sourceSets.main
                 }
             }
