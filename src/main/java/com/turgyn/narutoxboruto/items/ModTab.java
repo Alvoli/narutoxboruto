@@ -28,6 +28,8 @@ public class ModTab {
 			event.accept(ModItems.LIGHTNING_RELEASE.get());
 			event.accept(ModItems.YANG_RELEASE.get());
 			event.accept(ModItems.YIN_RELEASE.get());
+			event.accept(ModItems.DNA_BOTTLE.get());
+			event.accept(ModItems.JUTSU_LEARNER.get());
 		}
 	}
 
