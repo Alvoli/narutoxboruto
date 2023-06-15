@@ -1,6 +1,7 @@
 package com.turgyn.narutoxboruto.items;
 
 import com.turgyn.narutoxboruto.Main;
+import com.turgyn.narutoxboruto.items.custom.DnaBottleItem;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +26,7 @@ public class ModItems {
 		LIGHTNING_RELEASE = registerNatureRelease("lightning");
 		YIN_RELEASE = registerNatureRelease("yin");
 		YANG_RELEASE = registerNatureRelease("yang");
-		DNA_BOTTLE = MOD_ITEMS.register("dnabottle", () -> new Item(new Item.Properties().food(Foods.APPLE)));
+		DNA_BOTTLE = MOD_ITEMS.register("dnabottle", () -> new DnaBottleItem(new Item.Properties()));
 		JUTSU_LEARNER = registerItem("jutsulearner");
 	}
 
