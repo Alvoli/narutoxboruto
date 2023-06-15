@@ -15,7 +15,10 @@ public class ModTab {
 
 	@SubscribeEvent
 	public static void registerModTab(CreativeModeTabEvent.Register event) {
-		TAB = event.registerCreativeModeTab(new ResourceLocation(Main.MOD_ID, "tab"), builder -> builder.icon(()-> new ItemStack(ModItems.EARTH_RELEASE.get())).withTabsImage(new ResourceLocation(Main.MOD_ID, "textures/gui/tab.png")).build());
+		TAB = event.registerCreativeModeTab(new ResourceLocation(Main.MOD_ID, "tab"), builder -> builder
+				.icon(() -> new ItemStack(ModItems.TAB.get()))
+				.withTabsImage(new ResourceLocation(Main.MOD_ID, "textures/gui/tab.png")).title(
+						Component.translatable("itemGroup.narutoxboruto")).build());
 	}
 
 	@SubscribeEvent

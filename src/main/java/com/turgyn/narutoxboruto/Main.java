@@ -5,7 +5,6 @@ import com.turgyn.narutoxboruto.event.ClientEvents;
 import com.turgyn.narutoxboruto.items.ModItems;
 import com.turgyn.narutoxboruto.items.ModTab;
 import com.turgyn.narutoxboruto.networking.ModPacketHandler;
-import com.turgyn.narutoxboruto.stats.ModStats;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +22,6 @@ public class Main {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModItems.register(modEventBus);
 		ModTab.register();
-		ModStats.register();
 		modEventBus.addListener(this::commonSetup);
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new ClientEvents());

@@ -27,12 +27,12 @@
   "key.narutoxboruto.opengui": "Open GUI",
   "msg.narutoxboruto.clan" : "You were born as a member of the %s Clan",
   "msg.narutoxboruto.affiliation" : "You were born at the %s Village",
-  "msg.narutoxboruto.releases" : "You Received the following releases:%s",
-  "msg.narutoxboruto.release" : "You Received the%srelease:",
+  "msg.narutoxboruto.releases" : "You Received the following releases: %s",
+  "msg.narutoxboruto.release" : "You Received the %s release",
   "msg.narutoxboruto.rank" : "You are an %s",
   "rank.narutoxboruto.none": "None",
   "rank.narutoxboruto.rogue": "Rogue",
-  "rank.narutoxboruto.academy": "Academy Student",
+  "rank.narutoxboruto.academy": "Student",
   "rank.narutoxboruto.genin": "Genin",
   "rank.narutoxboruto.chuunin": "Chuunin",
   "rank.narutoxboruto.jounin": "Jounin",
@@ -54,5 +54,5 @@
   "stat.narutoxboruto.clan": "Clan",
   "stat.narutoxboruto.affiliation": "Affiliation",
   "stat.narutoxboruto.rank": "Rank",
-  "narutoxboruto.tab": "NarutoxBoruto Mod"
+  "itemGroup.narutoxboruto": "NarutoxBoruto"
 }

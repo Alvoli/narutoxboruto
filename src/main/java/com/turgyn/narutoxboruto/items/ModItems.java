@@ -2,10 +2,8 @@ package com.turgyn.narutoxboruto.items;
 
 import com.turgyn.narutoxboruto.Main;
 import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,14 +14,11 @@ import static net.minecraftforge.registries.ForgeRegistries.ITEMS;
 public class ModItems {
 	public static final DeferredRegister<Item> MOD_ITEMS = create(ITEMS, Main.MOD_ID);
 
-	public static final RegistryObject<Item> TAB, EARTH_RELEASE, WIND_RELEASE, WATER_RELEASE, FIRE_RELEASE, LIGHTNING_RELEASE, YIN_RELEASE, YANG_RELEASE, DNA_BOTTLE, JUTSU_LEARNER;
-
+	public static final RegistryObject<Item> TAB, EARTH_RELEASE, WIND_RELEASE, WATER_RELEASE, FIRE_RELEASE, LIGHTNING_RELEASE, YIN_RELEASE, YANG_RELEASE,DNA_BOTTLE,JUTSU_LEARNER;
 
 	static {
 		TAB = registerItem("tab");
 		EARTH_RELEASE = registerNatureRelease("earth");
-
-
 		WIND_RELEASE = registerNatureRelease("wind");
 		WATER_RELEASE = registerNatureRelease("water");
 		FIRE_RELEASE = registerNatureRelease("fire");
@@ -37,8 +32,6 @@ public class ModItems {
 	private static RegistryObject<Item> registerItem(String name) {
 		return MOD_ITEMS.register(name, () -> new Item(new Item.Properties()));
 	}
-
-
 
 	private static RegistryObject<Item> registerNatureRelease(String name) {
 		return MOD_ITEMS.register(name, () -> new NatureReleaseItem(new Item.Properties()));

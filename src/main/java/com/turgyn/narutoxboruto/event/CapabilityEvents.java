@@ -41,11 +41,11 @@ import static com.turgyn.narutoxboruto.items.ModItems.*;
 public class CapabilityEvents {
 	private static final Random RANDOM = new Random();
 
-	private static final String[] CLAN_LIST = new String[] {
+	private static final String[] CLAN_LIST = {
 			"fuma", "nara", "shiin", "shirogane", "uzumaki",
 	};
 
-	private static final String[] AFF_LIST = new String[] {
+	private static final String[] AFF_LIST = {
 			"cloud", "leaf", "mist", "rain", "sand", "sound", "stone",
 	};
 
@@ -62,7 +62,8 @@ public class CapabilityEvents {
 		sendClientMessage(serverPlayer, "affiliation", getAffiliation());
 		sendClientMessage(serverPlayer, "rank", getRank());
 		List<Item> list = new ArrayList<>();
-		for (int l = 0; l < RANDOM.nextInt(3) + 1; l++) {
+		int l = 0;
+		while (l <= RANDOM.nextInt(3)) {
 			int rand = RANDOM.nextInt(12);
 			Item stack = null;
 			switch (rand) {
@@ -77,11 +78,12 @@ public class CapabilityEvents {
 			if (!list.contains(stack)) {
 				list.add(stack);
 				serverPlayer.addItem(stack.getDefaultInstance());
+				l++;
 			}
 		}
-		String releases = StringUtils.capitaliseAllWords(list.toString().replace('[', ' ').replace(']', ' '));
+		String cleanReleaseText = StringUtils.capitaliseAllWords(list.toString().replace("[", "").replace("]", ""));
 		String s = list.size() > 1 ? "s" : "";
-		sendClientMessage( "release" + s,  Component.literal(releases), serverPlayer);
+		sendClientMessage("release" + s, Component.literal(cleanReleaseText), serverPlayer);
 	}
 
 	private static void sendClientMessage(ServerPlayer serverPlayer, String msg, String s) {
@@ -102,6 +104,7 @@ public class CapabilityEvents {
 	@SubscribeEvent
 	public static void onPlayerCloned(PlayerEvent.Clone event) {
 		if (event.getEntity() instanceof ServerPlayer serverPlayer && event.isWasDeath()) {
+			doSpawnStuff(serverPlayer);
 			//			Player original = event.getOriginal();
 			//			original.getCapability(AFFILIATION).ifPresent(oldPlayer -> serverPlayer.getCapability(AFFILIATION)
 			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
@@ -128,7 +131,6 @@ public class CapabilityEvents {
 			//			original.getCapability(TAIJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(TAIJUTSU)
 			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
 			//			serverPlayer.sendSystemMessage(Component.literal("Shinobi stats reset"));
-			doSpawnStuff(serverPlayer);
 		}
 	}
 
@@ -164,8 +166,9 @@ public class CapabilityEvents {
 			serverPlayer.getCapability(NINJUTSU).ifPresent(ninjutsu -> ninjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(RANK).ifPresent(rank -> rank.syncValue(serverPlayer));
 			serverPlayer.getCapability(SENJUTSU).ifPresent(senjutsu -> senjutsu.syncValue(serverPlayer));
-			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(
-					shinobiPoints -> shinobiPoints.syncValue(serverPlayer));
+			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(shinobiPoints -> {
+				shinobiPoints.syncValue(serverPlayer);
+			});
 			serverPlayer.getCapability(SHURIKENJUTSU).ifPresent(shurikenjutsu -> shurikenjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(SPEED).ifPresent(speed -> speed.syncValue(serverPlayer));
 			serverPlayer.getCapability(SUMMONING).ifPresent(summoning -> summoning.syncValue(serverPlayer));

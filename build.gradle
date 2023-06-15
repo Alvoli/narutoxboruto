@@ -5,7 +5,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "${mc_version}-${mod_version}"
+version = "${mc_version}-${new Date().format("yyyy.MM.dd")}"
 group = 'com.turgyn.narutoxboruto'
 archivesBaseName = 'narutoxboruto'
 
