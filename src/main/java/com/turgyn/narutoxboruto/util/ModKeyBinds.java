@@ -8,7 +8,7 @@ import org.lwjgl.glfw.GLFW;
 public class ModKeyBinds {
 	public static final String KEY_CATEGORY = "key.category.narutoxboruto";
 
-	public static final String KEY_OPEN_GUI = "key.narutoxboruto.opengui";
+	public static final String KEY_OPEN_GUI = "key.narutoxboruto.open_gui";
 
 	public static final KeyMapping OPEN_GUI = new KeyMapping(KEY_OPEN_GUI, KeyConflictContext.IN_GAME,
 			InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KEY_CATEGORY);

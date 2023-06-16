@@ -1,10 +1,7 @@
 package com.turgyn.narutoxboruto.items;
 
 import com.turgyn.narutoxboruto.Main;
-import com.turgyn.narutoxboruto.items.custom.DnaBottleItem;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -26,8 +23,8 @@ public class ModItems {
 		LIGHTNING_RELEASE = registerNatureRelease("lightning");
 		YIN_RELEASE = registerNatureRelease("yin");
 		YANG_RELEASE = registerNatureRelease("yang");
-		DNA_BOTTLE = MOD_ITEMS.register("dnabottle", () -> new DnaBottleItem(new Item.Properties()));
-		JUTSU_LEARNER = registerItem("jutsulearner");
+		DNA_BOTTLE = MOD_ITEMS.register("dna_bottle", () -> new DnaBottleItem(new Item.Properties()));
+		JUTSU_LEARNER = registerItem("jutsu_learner");
 	}
 
 	private static RegistryObject<Item> registerItem(String name) {
