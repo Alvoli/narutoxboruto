@@ -21,13 +21,9 @@ public class DnaBottleItem extends Item {
 	}
 
 	public void giveLoot(LivingEntity pLivingEntity) {
-		//calculate KG chance here
-		// which KG
-		//calculate Nature release chance
-		//which Nature
-		//todo fix item replacement
+		//todo KG
 		if (pLivingEntity.getRandom().nextBoolean()) { //50%
-			if (pLivingEntity instanceof Player player) {
+			if (pLivingEntity instanceof ServerPlayer player) {
 				int rand = player.getRandom().nextInt(12);
 				Item stack = null;
 				switch (rand) {
