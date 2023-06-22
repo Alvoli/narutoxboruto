@@ -27,7 +27,10 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 	public static Capability<Medical> MEDICAL = CapabilityManager.get(new CapabilityToken<>() { });
 
 	public static Capability<Ninjutsu> NINJUTSU = CapabilityManager.get(new CapabilityToken<>() { });
+
 	public static Capability<Rank> RANK = CapabilityManager.get(new CapabilityToken<>() { });
+
+	public static Capability<ReleaseList> RELEASE_LIST = CapabilityManager.get(new CapabilityToken<>() { });
 
 	public static Capability<Senjutsu> SENJUTSU = CapabilityManager.get(new CapabilityToken<>() { });
 
@@ -77,13 +80,17 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 
 	private final LazyOptional<Rank> lazyRank = LazyOptional.of(this::createRank);
 
+	private ReleaseList releaseList = null;
+
+	private final LazyOptional<ReleaseList> lazyReleaseList = LazyOptional.of(this::createReleaseList);
+
 	private Senjutsu senjutsu = null;
 
 	private final LazyOptional<Senjutsu> lazySenjutsu = LazyOptional.of(this::createSenjutsu);
 
 	private ShinobiPoints shinobiPoints = null;
 
-	private final LazyOptional<ShinobiPoints> lazyShinobiPoints = LazyOptional.of(this::createJutsu);
+	private final LazyOptional<ShinobiPoints> lazyShinobiPoints = LazyOptional.of(this::createShinobiPoints);
 
 	private Shurikenjutsu shurikenjutsu = null;
 
@@ -129,7 +136,7 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 		return this.genjutsu;
 	}
 
-	private ShinobiPoints createJutsu() {
+	private ShinobiPoints createShinobiPoints() {
 		if (this.shinobiPoints == null) {
 			this.shinobiPoints = new ShinobiPoints();
 		}
@@ -169,6 +176,13 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 			this.rank = new Rank();
 		}
 		return this.rank;
+	}
+
+	private ReleaseList createReleaseList() {
+		if (this.releaseList == null) {
+			this.releaseList = new ReleaseList();
+		}
+		return this.releaseList;
 	}
 
 	private Senjutsu createSenjutsu() {
@@ -237,6 +251,9 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 		if (cap == RANK) {
 			return lazyRank.cast();
 		}
+		if (cap == RELEASE_LIST) {
+			return lazyReleaseList.cast();
+		}
 		if (cap == SENJUTSU) {
 			return lazySenjutsu.cast();
 		}
@@ -262,11 +279,12 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 		createChakra().saveNBTData(nbt);
 		createClan().saveNBTData(nbt);
 		createGenjutsu().saveNBTData(nbt);
-		createJutsu().saveNBTData(nbt);
+		createShinobiPoints().saveNBTData(nbt);
 		createKenjutsu().saveNBTData(nbt);
 		createKinjutsu().saveNBTData(nbt);
 		createMedical().saveNBTData(nbt);
 		createNinjutsu().saveNBTData(nbt);
+		createRank().saveNBTData(nbt);
 		createSenjutsu().saveNBTData(nbt);
 		createShurikenjutsu().saveNBTData(nbt);
 		createSpeed().saveNBTData(nbt);
@@ -281,11 +299,12 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 		createChakra().loadNBTData(nbt);
 		createClan().loadNBTData(nbt);
 		createGenjutsu().loadNBTData(nbt);
-		createJutsu().loadNBTData(nbt);
+		createShinobiPoints().loadNBTData(nbt);
 		createKenjutsu().loadNBTData(nbt);
 		createKinjutsu().loadNBTData(nbt);
 		createMedical().loadNBTData(nbt);
 		createNinjutsu().loadNBTData(nbt);
+		createRank().loadNBTData(nbt);
 		createSenjutsu().loadNBTData(nbt);
 		createShurikenjutsu().loadNBTData(nbt);
 		createSpeed().loadNBTData(nbt);

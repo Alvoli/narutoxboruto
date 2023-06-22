@@ -61,7 +61,7 @@ public class CapabilityEvents {
 		sendClientMessage(serverPlayer, "clan", getClan());
 		sendClientMessage(serverPlayer, "affiliation", getAffiliation());
 		sendClientMessage(serverPlayer, "rank", getRank());
-		List<Item> list = new ArrayList<>();
+		List<Item> itemList = new ArrayList<>();
 		int l = 0;
 		while (l <= RANDOM.nextInt(3)) {
 			int rand = RANDOM.nextInt(12);
@@ -75,14 +75,18 @@ public class CapabilityEvents {
 				case 10 -> stack = YIN_RELEASE.get();
 				case 11 -> stack = YANG_RELEASE.get();
 			}
-			if (!list.contains(stack)) {
-				list.add(stack);
+			if (!itemList.contains(stack)) {
+				itemList.add(stack);
 				serverPlayer.addItem(stack.getDefaultInstance());
 				l++;
 			}
 		}
-		String cleanReleaseText = StringUtils.capitaliseAllWords(list.toString().replace("[", "").replace("]", ""));
-		String s = list.size() > 1 ? "s" : "";
+
+		String list = itemList.toString();
+		serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.updateReleaseList(
+				list, serverPlayer));
+		String cleanReleaseText = StringUtils.capitaliseAllWords(list.substring(1, list.length()-1));
+		String s = itemList.size() > 1 ? "s" : "";
 		sendClientMessage("release" + s, Component.literal(cleanReleaseText), serverPlayer);
 	}
 
@@ -105,32 +109,34 @@ public class CapabilityEvents {
 	public static void onPlayerCloned(PlayerEvent.Clone event) {
 		if (event.getEntity() instanceof ServerPlayer serverPlayer && event.isWasDeath()) {
 			doSpawnStuff(serverPlayer);
-			//			Player original = event.getOriginal();
-			//			original.getCapability(AFFILIATION).ifPresent(oldPlayer -> serverPlayer.getCapability(AFFILIATION)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(CHAKRA).ifPresent(oldPlayer -> serverPlayer.getCapability(CHAKRA)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(GENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(GENJUTSU)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(KENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(KENJUTSU)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(KINJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(KINJUTSU)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(MEDICAL).ifPresent(oldPlayer -> serverPlayer.getCapability(MEDICAL)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(SENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(SENJUTSU)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(SHURIKENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(SHURIKENJUTSU)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(SHINOBI_POINTS).ifPresent(oldPlayer -> serverPlayer.getCapability(SHINOBI_POINTS)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(SPEED).ifPresent(oldPlayer -> serverPlayer.getCapability(SPEED)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(SUMMONING).ifPresent(oldPlayer -> serverPlayer.getCapability(SUMMONING)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			original.getCapability(TAIJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(TAIJUTSU)
-			//					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			//			serverPlayer.sendSystemMessage(Component.literal("Shinobi stats reset"));
+			Player original = event.getOriginal();
+			original.getCapability(AFFILIATION).ifPresent(oldPlayer -> serverPlayer.getCapability(AFFILIATION)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(CHAKRA).ifPresent(oldPlayer -> serverPlayer.getCapability(CHAKRA)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(GENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(GENJUTSU)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(KENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(KENJUTSU)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(KINJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(KINJUTSU)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(MEDICAL).ifPresent(oldPlayer -> serverPlayer.getCapability(MEDICAL)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(RANK).ifPresent(oldPlayer -> serverPlayer.getCapability(RANK)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(SENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(SENJUTSU)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(SHURIKENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(SHURIKENJUTSU)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(SHINOBI_POINTS).ifPresent(oldPlayer -> serverPlayer.getCapability(SHINOBI_POINTS)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(SPEED).ifPresent(oldPlayer -> serverPlayer.getCapability(SPEED)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(SUMMONING).ifPresent(oldPlayer -> serverPlayer.getCapability(SUMMONING)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(TAIJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(TAIJUTSU)
+					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			serverPlayer.sendSystemMessage(Component.literal("Shinobi stats reset"));
 		}
 	}
 
@@ -145,6 +151,7 @@ public class CapabilityEvents {
 		event.register(Kinjutsu.class);
 		event.register(Ninjutsu.class);
 		event.register(Rank.class);
+		event.register(ReleaseList.class);
 		event.register(Medical.class);
 		event.register(Senjutsu.class);
 		event.register(Shurikenjutsu.class);
@@ -165,6 +172,7 @@ public class CapabilityEvents {
 			serverPlayer.getCapability(MEDICAL).ifPresent(medical -> medical.syncValue(serverPlayer));
 			serverPlayer.getCapability(NINJUTSU).ifPresent(ninjutsu -> ninjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(RANK).ifPresent(rank -> rank.syncValue(serverPlayer));
+//			serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.syncValue(serverPlayer));
 			serverPlayer.getCapability(SENJUTSU).ifPresent(senjutsu -> senjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(shinobiPoints -> {
 				shinobiPoints.syncValue(serverPlayer);
