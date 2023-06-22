@@ -1,29 +1,23 @@
 package com.turgyn.narutoxboruto.capabilities;
 
+import com.turgyn.narutoxboruto.networking.ModPacketHandler;
+import com.turgyn.narutoxboruto.networking.SyncReleaseList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.Arrays;
-
 public class ReleaseList {
-	private String release;
+	private String release = "";
 
 	public String getRelease() {
 		return release;
 	}
 
-	public void updateReleaseList(String release, ServerPlayer serverPlayer) {
-		this.release = release;
-//		this.syncValue(serverPlayer);
+	public void updateReleaseList(String release) {
+		this.release = this.release + release;
 	}
 
-//	public void syncValue(ServerPlayer serverPlayer) {
-//		ModPacketHandler.sendToPlayer(new SyncRelease(this.release), serverPlayer);
-//	}
-
-	public void copyFrom(ReleaseList source, ServerPlayer serverPlayer) {
+	public void copyFrom(ReleaseList source) {
 		this.release = source.release;
-//		this.syncValue(serverPlayer);
 	}
 
 	public void saveNBTData(CompoundTag nbt) {

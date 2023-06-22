@@ -7,23 +7,23 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class SyncRank {
-	private final String rank;
+public class SyncReleaseList {
+	private final String releaseList;
 
-	public SyncRank(String rank) {
-		this.rank = rank;
+	public SyncReleaseList(String releaseList) {
+		this.releaseList = releaseList;
 	}
 
-	public SyncRank(FriendlyByteBuf buf) {
-		this.rank = buf.readComponent().getString();
+	public SyncReleaseList(FriendlyByteBuf buf) {
+		this.releaseList = buf.readComponent().getString();
 	}
 
 	public void toBytes(FriendlyByteBuf buf) {
-		buf.writeComponent(Component.literal(rank));
+		buf.writeComponent(Component.literal(releaseList));
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> supplier) {
 		NetworkEvent.Context context = supplier.get();
-		context.enqueueWork(() -> PlayerData.setRank(rank));
+		context.enqueueWork(() -> PlayerData.setRank(releaseList));
 	}
 }

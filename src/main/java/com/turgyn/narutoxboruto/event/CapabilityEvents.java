@@ -81,11 +81,9 @@ public class CapabilityEvents {
 				l++;
 			}
 		}
-
 		String list = itemList.toString();
-		serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.updateReleaseList(
-				list, serverPlayer));
 		String cleanReleaseText = StringUtils.capitaliseAllWords(list.substring(1, list.length()-1));
+		serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.updateReleaseList(cleanReleaseText));
 		String s = itemList.size() > 1 ? "s" : "";
 		sendClientMessage("release" + s, Component.literal(cleanReleaseText), serverPlayer);
 	}
@@ -172,11 +170,8 @@ public class CapabilityEvents {
 			serverPlayer.getCapability(MEDICAL).ifPresent(medical -> medical.syncValue(serverPlayer));
 			serverPlayer.getCapability(NINJUTSU).ifPresent(ninjutsu -> ninjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(RANK).ifPresent(rank -> rank.syncValue(serverPlayer));
-//			serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.syncValue(serverPlayer));
 			serverPlayer.getCapability(SENJUTSU).ifPresent(senjutsu -> senjutsu.syncValue(serverPlayer));
-			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(shinobiPoints -> {
-				shinobiPoints.syncValue(serverPlayer);
-			});
+			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(shinobiPoints -> shinobiPoints.syncValue(serverPlayer));
 			serverPlayer.getCapability(SHURIKENJUTSU).ifPresent(shurikenjutsu -> shurikenjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(SPEED).ifPresent(speed -> speed.syncValue(serverPlayer));
 			serverPlayer.getCapability(SUMMONING).ifPresent(summoning -> summoning.syncValue(serverPlayer));

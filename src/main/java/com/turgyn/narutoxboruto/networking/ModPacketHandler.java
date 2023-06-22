@@ -22,6 +22,7 @@ public class ModPacketHandler {
 				.networkProtocolVersion(() -> "1.0").clientAcceptedVersions(s -> true).serverAcceptedVersions(s -> true)
 				.simpleChannel();
 		INSTANCE = net;
+
 		net.messageBuilder(ChakraHandlerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).decoder(
 				ChakraHandlerC2SPacket::new).encoder(ChakraHandlerC2SPacket::toBytes).consumerMainThread(
 				ChakraHandlerC2SPacket::handle).add();

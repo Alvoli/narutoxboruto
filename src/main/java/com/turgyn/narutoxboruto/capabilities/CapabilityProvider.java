@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 
 public class CapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 	public static Capability<Affiliation> AFFILIATION = CapabilityManager.get(new CapabilityToken<>() { });
+
 	public static Capability<Chakra> CHAKRA = CapabilityManager.get(new CapabilityToken<>() { });
 
 	public static Capability<Clan> CLAN = CapabilityManager.get(new CapabilityToken<>() { });
@@ -222,10 +223,11 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 
 	@Override
 	public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+		if (cap == AFFILIATION) {
+			return lazyAffiliation.cast();
+		}
 		if (cap == CHAKRA) {
 			return lazyChakra.cast();
-		}if (cap == AFFILIATION) {
-			return lazyAffiliation.cast();
 		}
 		if (cap == CLAN) {
 			return lazyClan.cast();
@@ -285,6 +287,7 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 		createMedical().saveNBTData(nbt);
 		createNinjutsu().saveNBTData(nbt);
 		createRank().saveNBTData(nbt);
+		createReleaseList().saveNBTData(nbt);
 		createSenjutsu().saveNBTData(nbt);
 		createShurikenjutsu().saveNBTData(nbt);
 		createSpeed().saveNBTData(nbt);
@@ -305,6 +308,7 @@ public class CapabilityProvider implements ICapabilityProvider, INBTSerializable
 		createMedical().loadNBTData(nbt);
 		createNinjutsu().loadNBTData(nbt);
 		createRank().loadNBTData(nbt);
+		createReleaseList().loadNBTData(nbt);
 		createSenjutsu().loadNBTData(nbt);
 		createShurikenjutsu().loadNBTData(nbt);
 		createSpeed().loadNBTData(nbt);
