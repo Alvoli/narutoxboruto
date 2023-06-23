@@ -21,8 +21,8 @@ public class Affiliation {
 		ModPacketHandler.sendToPlayer(new SyncAffiliation(this.affiliation), serverPlayer);
 	}
 
-	public void copyFrom(Affiliation source, ServerPlayer serverPlayer) {
-		this.affiliation = source.affiliation;
+	public void copyFrom(Affiliation oldPLayer, ServerPlayer serverPlayer) {
+		this.affiliation = oldPLayer.getAffiliation();
 		this.syncValue(serverPlayer);
 	}
 

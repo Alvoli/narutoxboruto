@@ -31,9 +31,9 @@ public class DnaBottleItem extends Item {
 		//todo KG
 		if (pLivingEntity.getRandom().nextBoolean()) { //50%
 			if (pLivingEntity instanceof ServerPlayer serverPlayer) {
-				Item stack = null;
-				stack = getNewRelease(stack);
-				Item finalRelease = stack;
+				Item release = null;
+				release = getNewRelease(release);
+				Item finalRelease = release;
 				serverPlayer.getCapability(CapabilityProvider.RELEASE_LIST).ifPresent(releaseList -> {
 					if (!releaseList.getList().contains(finalRelease.toString())) {
 						releaseList.updateReleaseList(", " + finalRelease);

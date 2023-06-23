@@ -4,7 +4,6 @@ import com.turgyn.narutoxboruto.Main;
 import com.turgyn.narutoxboruto.capabilities.*;
 import com.turgyn.narutoxboruto.util.ModUtil;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -27,15 +26,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.codehaus.plexus.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static com.turgyn.narutoxboruto.capabilities.CapabilityProvider.*;
-import static com.turgyn.narutoxboruto.client.PlayerData.*;
-import static com.turgyn.narutoxboruto.util.ModUtil.getNewRelease;
+import static com.turgyn.narutoxboruto.util.ModUtil.*;
 
 @Mod.EventBusSubscriber(modid = Main.MOD_ID)
 public class CapabilityEvents {
@@ -52,39 +49,25 @@ public class CapabilityEvents {
 	private static boolean taiFlag, kenFlag;
 
 	private static void doSpawnStuff(ServerPlayer serverPlayer) {
-		int clanRand = RANDOM.nextInt(CLAN_LIST.length);
-		int affRand = RANDOM.nextInt(AFF_LIST.length);
-		serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setClan(CLAN_LIST[clanRand], serverPlayer));
+		serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setClan(getRandomString(CLAN_LIST), serverPlayer));
 		serverPlayer.getCapability(AFFILIATION).ifPresent(
-				affiliation -> affiliation.setAffiliation(AFF_LIST[affRand], serverPlayer));
+				affiliation -> affiliation.setAffiliation(getRandomString(AFF_LIST), serverPlayer));
 		serverPlayer.getCapability(RANK).ifPresent(rank -> rank.setRank("academy", serverPlayer));
-		sendClientMessage(serverPlayer, "clan", getClan());
-		sendClientMessage(serverPlayer, "affiliation", getAffiliation());
-		sendClientMessage(serverPlayer, "rank", getRank());
-		List<Item> itemList = new ArrayList<>();
+		List<Item> newReleaseList = new ArrayList<>();
 		int l = 0;
 		while (l <= RANDOM.nextInt(3)) {
 			Item stack = null;
 			stack = getNewRelease(stack);
-			if (!itemList.contains(stack)) {
-				itemList.add(stack);
+			if (!newReleaseList.contains(stack)) {
 				serverPlayer.addItem(stack.getDefaultInstance());
+				newReleaseList.add(stack);
 				l++;
 			}
 		}
-		String list = itemList.toString();
-		String cleanReleaseText = StringUtils.capitaliseAllWords(list.substring(1, list.length()-1));
-		serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.updateReleaseList(cleanReleaseText));
-		String s = itemList.size() > 1 ? "s" : "";
-		sendClientMessage("release" + s, Component.literal(cleanReleaseText), serverPlayer);
-	}
-
-	private static void sendClientMessage(ServerPlayer serverPlayer, String msg, String s) {
-		sendClientMessage(msg, Component.translatable(msg + ".narutoxboruto." + s), serverPlayer);
-	}
-
-	private static void sendClientMessage(String msg, MutableComponent s, ServerPlayer serverPlayer) {
-		serverPlayer.displayClientMessage(Component.translatable("msg.narutoxboruto." + msg, s), false);
+		String list = newReleaseList.toString();
+		String formattedList = list.substring(1, list.length() - 1);
+		serverPlayer.getCapability(RELEASE_LIST).ifPresent(releaseList -> releaseList.updateReleaseList(formattedList));
+		msgPlayerInfo(serverPlayer);
 	}
 
 	@SubscribeEvent
@@ -99,8 +82,11 @@ public class CapabilityEvents {
 		if (event.getEntity() instanceof ServerPlayer serverPlayer && event.isWasDeath()) {
 			doSpawnStuff(serverPlayer);
 			Player original = event.getOriginal();
-			original.getCapability(AFFILIATION).ifPresent(oldPlayer -> serverPlayer.getCapability(AFFILIATION)
-					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
+			original.getCapability(AFFILIATION).ifPresent(affiliation -> {
+				serverPlayer.getCapability(AFFILIATION).ifPresent(newPlayer -> {
+					newPlayer.copyFrom(affiliation, serverPlayer);
+				});
+			});
 			original.getCapability(CHAKRA).ifPresent(oldPlayer -> serverPlayer.getCapability(CHAKRA)
 					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
 			original.getCapability(GENJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(GENJUTSU)
@@ -125,7 +111,7 @@ public class CapabilityEvents {
 					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
 			original.getCapability(TAIJUTSU).ifPresent(oldPlayer -> serverPlayer.getCapability(TAIJUTSU)
 					.ifPresent(newPlayer -> newPlayer.copyFrom(oldPlayer, serverPlayer)));
-			serverPlayer.sendSystemMessage(Component.literal("Shinobi stats reset"));
+//			serverPlayer.sendSystemMessage(Component.literal("Shinobi stats reset"));
 		}
 	}
 
@@ -162,7 +148,9 @@ public class CapabilityEvents {
 			serverPlayer.getCapability(NINJUTSU).ifPresent(ninjutsu -> ninjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(RANK).ifPresent(rank -> rank.syncValue(serverPlayer));
 			serverPlayer.getCapability(SENJUTSU).ifPresent(senjutsu -> senjutsu.syncValue(serverPlayer));
-			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(shinobiPoints -> shinobiPoints.syncValue(serverPlayer));
+			serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(shinobiPoints -> {
+				shinobiPoints.syncValue(serverPlayer);
+			});
 			serverPlayer.getCapability(SHURIKENJUTSU).ifPresent(shurikenjutsu -> shurikenjutsu.syncValue(serverPlayer));
 			serverPlayer.getCapability(SPEED).ifPresent(speed -> speed.syncValue(serverPlayer));
 			serverPlayer.getCapability(SUMMONING).ifPresent(summoning -> summoning.syncValue(serverPlayer));
