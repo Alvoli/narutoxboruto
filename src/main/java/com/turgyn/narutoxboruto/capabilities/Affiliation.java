@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 
 public class Affiliation {
-	private String affiliation;
+	private String affiliation = "";
 
 	public String getAffiliation() {
 		return affiliation;

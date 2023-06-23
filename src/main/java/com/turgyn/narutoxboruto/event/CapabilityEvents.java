@@ -2,7 +2,7 @@ package com.turgyn.narutoxboruto.event;
 
 import com.turgyn.narutoxboruto.Main;
 import com.turgyn.narutoxboruto.capabilities.*;
-import com.turgyn.narutoxboruto.util.Util;
+import com.turgyn.narutoxboruto.util.ModUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +35,7 @@ import java.util.Random;
 
 import static com.turgyn.narutoxboruto.capabilities.CapabilityProvider.*;
 import static com.turgyn.narutoxboruto.client.PlayerData.*;
-import static com.turgyn.narutoxboruto.items.ModItems.*;
+import static com.turgyn.narutoxboruto.util.ModUtil.getNewRelease;
 
 @Mod.EventBusSubscriber(modid = Main.MOD_ID)
 public class CapabilityEvents {
@@ -64,17 +64,8 @@ public class CapabilityEvents {
 		List<Item> itemList = new ArrayList<>();
 		int l = 0;
 		while (l <= RANDOM.nextInt(3)) {
-			int rand = RANDOM.nextInt(12);
 			Item stack = null;
-			switch (rand) {
-				case 0, 1 -> stack = EARTH_RELEASE.get();
-				case 2, 3 -> stack = FIRE_RELEASE.get();
-				case 4, 5 -> stack = LIGHTNING_RELEASE.get();
-				case 6, 7 -> stack = WATER_RELEASE.get();
-				case 8, 9 -> stack = WIND_RELEASE.get();
-				case 10 -> stack = YIN_RELEASE.get();
-				case 11 -> stack = YANG_RELEASE.get();
-			}
+			stack = getNewRelease(stack);
 			if (!itemList.contains(stack)) {
 				itemList.add(stack);
 				serverPlayer.addItem(stack.getDefaultInstance());
@@ -182,7 +173,7 @@ public class CapabilityEvents {
 	@SubscribeEvent
 	public static void onPlayerFirstJoin(EntityJoinLevelEvent event) {
 		if (!event.getLevel().isClientSide() && event.getEntity() instanceof ServerPlayer serverPlayer
-				&& Util.getPlayerStat(serverPlayer, Stats.LEAVE_GAME) == 0) {
+				&& ModUtil.getPlayerStat(serverPlayer, Stats.LEAVE_GAME) == 0) {
 			doSpawnStuff(serverPlayer);
 		}
 	}
@@ -252,7 +243,7 @@ public class CapabilityEvents {
 				}
 			});
 			serverPlayer.getCapability(SPEED).ifPresent(speed -> {
-				int i = (Util.getPlayerStat(serverPlayer, Stats.SPRINT_ONE_CM) / 15000);
+				int i = (ModUtil.getPlayerStat(serverPlayer, Stats.SPRINT_ONE_CM) / 15000);
 				int j = speed.getValue();
 				if (j < i) {
 					speed.addValue(i - j, serverPlayer);

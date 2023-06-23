@@ -1,6 +1,8 @@
 package com.turgyn.narutoxboruto.items;
 
+import com.turgyn.narutoxboruto.capabilities.CapabilityProvider;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -9,11 +11,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.turgyn.narutoxboruto.items.ModItems.*;
+import static com.turgyn.narutoxboruto.util.ModUtil.getNewRelease;
 
 public class DnaBottleItem extends Item {
 	public DnaBottleItem(Properties properties) {
@@ -23,19 +30,20 @@ public class DnaBottleItem extends Item {
 	public void giveLoot(LivingEntity pLivingEntity) {
 		//todo KG
 		if (pLivingEntity.getRandom().nextBoolean()) { //50%
-			if (pLivingEntity instanceof ServerPlayer player) {
-				int rand = player.getRandom().nextInt(12);
+			if (pLivingEntity instanceof ServerPlayer serverPlayer) {
 				Item stack = null;
-				switch (rand) {
-					case 0, 1 -> stack = EARTH_RELEASE.get();
-					case 2, 3 -> stack = FIRE_RELEASE.get();
-					case 4, 5 -> stack = LIGHTNING_RELEASE.get();
-					case 6, 7 -> stack = WATER_RELEASE.get();
-					case 8, 9 -> stack = WIND_RELEASE.get();
-					case 10 -> stack = YIN_RELEASE.get();
-					case 11 -> stack = YANG_RELEASE.get();
-				}
-				player.addItem(stack.getDefaultInstance());
+				stack = getNewRelease(stack);
+				Item finalRelease = stack;
+				serverPlayer.getCapability(CapabilityProvider.RELEASE_LIST).ifPresent(releaseList -> {
+					if (!releaseList.getList().contains(finalRelease.toString())) {
+						releaseList.updateReleaseList(", " + finalRelease);
+						serverPlayer.addItem(finalRelease.getDefaultInstance());
+					}
+					else {
+						serverPlayer.sendSystemMessage(Component.literal(
+								"Player already has " + StringUtils.capitalize(finalRelease.toString())));
+					}
+				});
 			}
 		}
 	}

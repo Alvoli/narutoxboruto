@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 
 public class Clan {
-	private String clan;
+	private String clan = "";
 
 	public String getClan() {
 		return clan;

@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 
 public class Rank {
-	private String rank;
+	private String rank = "";
 
 	public String getRank() {
 		return rank;
