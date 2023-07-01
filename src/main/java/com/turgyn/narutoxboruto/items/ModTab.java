@@ -33,6 +33,14 @@ public class ModTab {
 			event.accept(ModItems.YIN_RELEASE.get());
 			event.accept(ModItems.DNA_BOTTLE.get());
 			event.accept(ModItems.JUTSU_LEARNER.get());
+			event.accept(ModItems.FIRE_DNA.get());
+			event.accept(ModItems.WIND_DNA.get());
+			event.accept(ModItems.EARTH_DNA.get());
+			event.accept(ModItems.WATER_DNA.get());
+			event.accept(ModItems.YANG_DNA.get());
+			event.accept(ModItems.YIN_DNA.get());
+			event.accept(ModItems.LIGHTNING_DNA.get());
+
 		}
 	}
 
