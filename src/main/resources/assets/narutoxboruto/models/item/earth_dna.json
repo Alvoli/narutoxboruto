@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "narutoxboruto:item/dna_bottle/wind_dna"
+    "layer0": "narutoxboruto:item/dna_bottle/earth_dna"
   }
 }

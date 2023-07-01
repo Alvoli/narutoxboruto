@@ -61,7 +61,9 @@ public class CapabilityEvents {
 				newReleaseList.add(stack);
 				l++;
 			}
+		}
 
+	}
 	@SubscribeEvent
 	public static void TEST_ONLY_DELETE_LATER(PlayerSleepInBedEvent event) {
 		if (event.getEntity() instanceof ServerPlayer) {
