@@ -30,7 +30,7 @@ public class DnaBottleItem extends Item {
 	protected void giveLoot(LivingEntity pLivingEntity) {
 		if (pLivingEntity.getRandom().nextBoolean()) {
 			if (pLivingEntity instanceof ServerPlayer serverPlayer) {
-				Item release = ModUtil.getNewRelease();
+				Item release = getRelease();
 				serverPlayer.getCapability(CapabilityProvider.RELEASE_LIST).ifPresent(releaseList -> {
 					if (!releaseList.getList().contains(release.toString())) {
 						releaseList.updateReleaseList(", " + release);
@@ -43,6 +43,10 @@ public class DnaBottleItem extends Item {
 				});
 			}
 		}
+	}
+
+	public Item getRelease() {
+		return getNewRelease();
 	}
 
 	@Override
