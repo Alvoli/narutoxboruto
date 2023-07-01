@@ -1,6 +1,7 @@
 package com.turgyn.narutoxboruto.items;
 
 import com.turgyn.narutoxboruto.capabilities.CapabilityProvider;
+import com.turgyn.narutoxboruto.util.ModUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,21 +27,18 @@ public class DnaBottleItem extends Item {
 		super(properties);
 	}
 
-	public void giveLoot(LivingEntity pLivingEntity) {
-		//todo KG
-		if (pLivingEntity.getRandom().nextBoolean()) { //50%
+	protected void giveLoot(LivingEntity pLivingEntity) {
+		if (pLivingEntity.getRandom().nextBoolean()) {
 			if (pLivingEntity instanceof ServerPlayer serverPlayer) {
-				Item release = null;
-				release = getNewRelease(release);
-				Item finalRelease = release;
+				Item release = ModUtil.getNewRelease();
 				serverPlayer.getCapability(CapabilityProvider.RELEASE_LIST).ifPresent(releaseList -> {
-					if (!releaseList.getList().contains(finalRelease.toString())) {
-						releaseList.updateReleaseList(", " + finalRelease);
-						serverPlayer.addItem(finalRelease.getDefaultInstance());
+					if (!releaseList.getList().contains(release.toString())) {
+						releaseList.updateReleaseList(", " + release);
+						serverPlayer.addItem(release.getDefaultInstance());
 					}
 					else {
 						serverPlayer.sendSystemMessage(Component.literal(
-								"Player already has " + StringUtils.capitalize(finalRelease.toString())));
+								"Player already has " + StringUtils.capitalize(release.toString())));
 					}
 				});
 			}

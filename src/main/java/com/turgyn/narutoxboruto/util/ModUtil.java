@@ -22,7 +22,8 @@ public class ModUtil {
 		return serverPlayer.getStats().getValue(Stats.CUSTOM.get(stat));
 	}
 
-	public static Item getNewRelease(Item release) {
+	public static Item getNewRelease() {
+		Item release = null;
 		switch (random.nextInt(12)) {
 			case 0, 1 -> release = EARTH_RELEASE.get();
 			case 2, 3 -> release = FIRE_RELEASE.get();

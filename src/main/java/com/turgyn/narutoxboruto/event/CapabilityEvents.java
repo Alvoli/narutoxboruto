@@ -45,7 +45,7 @@ public class CapabilityEvents {
 	@SubscribeEvent
 	public static void TEST_ONLY_DELETE_LATER(PlayerSleepInBedEvent event) {
 		if (event.getEntity() instanceof ServerPlayer) {
-			getNewRelease(null);
+			getNewRelease();
 		}
 	}
 
@@ -67,8 +67,7 @@ public class CapabilityEvents {
 			List<Item> newReleaseList = new ArrayList<>();
 			int l = 0;
 			while (l <= RANDOM.nextInt(3)) {
-				Item stack = null;
-				stack = getNewRelease(stack);
+				Item stack = getNewRelease();
 				if (!newReleaseList.contains(stack)) {
 					serverPlayer.addItem(stack.getDefaultInstance());
 					newReleaseList.add(stack);
