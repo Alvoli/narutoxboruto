@@ -56,6 +56,16 @@ public class CapabilityEvents {
 		}
 	}
 
+	private void givePlayerStatBonuses(ServerPlayer serverPlayer){
+		serverPlayer.getCapability(CLAN).ifPresent((clan)-> {
+			switch(clan.getValue()){
+				case "uzumaki" ->{
+
+				}
+			}
+		});
+	}
+
 	@SubscribeEvent
 	public static void onPlayerFirstJoin(EntityJoinLevelEvent event) {
 		if (!event.getLevel().isClientSide() && event.getEntity() instanceof ServerPlayer serverPlayer
