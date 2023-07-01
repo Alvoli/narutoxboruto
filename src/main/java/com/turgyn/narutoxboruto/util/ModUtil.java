@@ -20,7 +20,8 @@ public class ModUtil {
 		return serverPlayer.getStats().getValue(Stats.CUSTOM.get(stat));
 	}
 
-	public static Item getNewRelease(Item stack) {
+	public static Item getNewRelease() {
+		Item stack = null;
 		switch (random.nextInt(12)) {
 			case 0, 1 -> stack = EARTH_RELEASE.get();
 			case 2, 3 -> stack = FIRE_RELEASE.get();

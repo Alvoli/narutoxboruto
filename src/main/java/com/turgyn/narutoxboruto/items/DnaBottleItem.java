@@ -31,21 +31,23 @@ public class DnaBottleItem extends Item {
 		//todo KG
 		if (pLivingEntity.getRandom().nextBoolean()) { //50%
 			if (pLivingEntity instanceof ServerPlayer serverPlayer) {
-				Item release = null;
-				release = getNewRelease(release);
-				Item finalRelease = release;
+				Item release = getRelease();
 				serverPlayer.getCapability(CapabilityProvider.RELEASE_LIST).ifPresent(releaseList -> {
-					if (!releaseList.getList().contains(finalRelease.toString())) {
-						releaseList.updateReleaseList(", " + finalRelease);
-						serverPlayer.addItem(finalRelease.getDefaultInstance());
+					if (!releaseList.getList().contains(release.toString())) {
+						releaseList.updateReleaseList(", " + release);
+						serverPlayer.addItem(release.getDefaultInstance());
 					}
 					else {
 						serverPlayer.sendSystemMessage(Component.literal(
-								"Player already has " + StringUtils.capitalize(finalRelease.toString())));
+								"Player already has " + StringUtils.capitalize(release.toString())));
 					}
 				});
 			}
 		}
+	}
+
+	public Item getRelease() {
+		return getNewRelease();
 	}
 
 	@Override

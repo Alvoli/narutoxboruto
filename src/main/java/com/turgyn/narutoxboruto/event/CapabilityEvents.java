@@ -48,7 +48,9 @@ public class CapabilityEvents {
 
 	private static boolean taiFlag, kenFlag;
 
+
 	private static void doSpawnStuff(ServerPlayer serverPlayer) {
+
 		serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setClan(getRandomString(CLAN_LIST), serverPlayer));
 		serverPlayer.getCapability(AFFILIATION).ifPresent(
 				affiliation -> affiliation.setAffiliation(getRandomString(AFF_LIST), serverPlayer));
@@ -57,7 +59,7 @@ public class CapabilityEvents {
 		int l = 0;
 		while (l <= RANDOM.nextInt(3)) {
 			Item stack = null;
-			stack = getNewRelease(stack);
+			stack = getNewRelease();
 			if (!newReleaseList.contains(stack)) {
 				serverPlayer.addItem(stack.getDefaultInstance());
 				newReleaseList.add(stack);
