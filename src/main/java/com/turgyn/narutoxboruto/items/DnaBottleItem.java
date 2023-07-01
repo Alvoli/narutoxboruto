@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.apache.commons.lang3.StringUtils;
 
-import static com.turgyn.narutoxboruto.items.ModItems.*;
 import static com.turgyn.narutoxboruto.util.ModUtil.getNewRelease;
 
 public class DnaBottleItem extends Item {

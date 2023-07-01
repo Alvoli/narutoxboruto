@@ -1,10 +1,12 @@
 package com.turgyn.narutoxboruto.capabilities;
 
-import com.turgyn.narutoxboruto.networking.SyncChakra;
 import com.turgyn.narutoxboruto.networking.ModPacketHandler;
+import com.turgyn.narutoxboruto.networking.SyncChakra;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class Chakra {
 	public final int MAX_VALUE = 50;
 
@@ -29,8 +31,7 @@ public class Chakra {
 	}
 
 	public void copyFrom(Chakra source, ServerPlayer serverPlayer) {
-		this.value = source.value;
-		addValue(source.getValue(), serverPlayer);
+		this.value = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 

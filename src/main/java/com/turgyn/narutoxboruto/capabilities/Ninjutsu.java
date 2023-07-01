@@ -4,9 +4,11 @@ import com.turgyn.narutoxboruto.networking.ModPacketHandler;
 import com.turgyn.narutoxboruto.networking.SyncNinjutsu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import static com.turgyn.narutoxboruto.capabilities.CapabilityProvider.SHINOBI_POINTS;
 
+@AutoRegisterCapability
 public class Ninjutsu {
 	public final int MAX_VALUE = 10;
 
@@ -33,7 +35,7 @@ public class Ninjutsu {
 	}
 
 	public void copyFrom(Ninjutsu source, ServerPlayer serverPlayer) {
-		this.value = source.value;
+		this.value = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 

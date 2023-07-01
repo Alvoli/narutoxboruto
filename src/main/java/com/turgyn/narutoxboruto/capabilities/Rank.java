@@ -4,7 +4,9 @@ import com.turgyn.narutoxboruto.networking.ModPacketHandler;
 import com.turgyn.narutoxboruto.networking.SyncRank;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class Rank {
 	private String rank = "";
 
@@ -22,7 +24,7 @@ public class Rank {
 	}
 
 	public void copyFrom(Rank source, ServerPlayer serverPlayer) {
-		this.rank = source.rank;
+		this.rank = source.getRank();
 		this.syncValue(serverPlayer);
 	}
 

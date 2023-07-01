@@ -4,9 +4,11 @@ import com.turgyn.narutoxboruto.networking.ModPacketHandler;
 import com.turgyn.narutoxboruto.networking.SyncSpeed;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import static com.turgyn.narutoxboruto.capabilities.CapabilityProvider.SHINOBI_POINTS;
 
+@AutoRegisterCapability
 public class Speed {
 	public final int MAX_VALUE = 20;
 
@@ -20,7 +22,7 @@ public class Speed {
 		this.value = Math.min(value + set, MAX_VALUE);
 		this.syncValue(serverPlayer);
 		serverPlayer.getCapability(SHINOBI_POINTS).ifPresent(
-				shinobiPoints -> shinobiPoints.addValue(getValue(),serverPlayer));
+				shinobiPoints -> shinobiPoints.addValue(getValue(), serverPlayer));
 	}
 
 	public void syncValue(ServerPlayer serverPlayer) {
@@ -28,7 +30,7 @@ public class Speed {
 	}
 
 	public void copyFrom(Speed source, ServerPlayer serverPlayer) {
-		this.value = source.value;
+		this.value = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 

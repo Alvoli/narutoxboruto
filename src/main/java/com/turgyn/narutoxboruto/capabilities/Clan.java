@@ -1,14 +1,16 @@
 package com.turgyn.narutoxboruto.capabilities;
 
-import com.turgyn.narutoxboruto.networking.SyncClan;
 import com.turgyn.narutoxboruto.networking.ModPacketHandler;
+import com.turgyn.narutoxboruto.networking.SyncClan;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class Clan {
 	private String clan = "";
 
-	public String getClan() {
+	public String getValue() {
 		return clan;
 	}
 
@@ -22,7 +24,7 @@ public class Clan {
 	}
 
 	public void copyFrom(Clan source, ServerPlayer serverPlayer) {
-		this.clan = source.clan;
+		this.clan = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 

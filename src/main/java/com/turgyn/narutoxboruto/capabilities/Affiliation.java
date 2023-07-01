@@ -4,11 +4,13 @@ import com.turgyn.narutoxboruto.networking.ModPacketHandler;
 import com.turgyn.narutoxboruto.networking.SyncAffiliation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class Affiliation {
 	private String affiliation = "";
 
-	public String getAffiliation() {
+	public String getValue() {
 		return affiliation;
 	}
 
@@ -21,8 +23,8 @@ public class Affiliation {
 		ModPacketHandler.sendToPlayer(new SyncAffiliation(this.affiliation), serverPlayer);
 	}
 
-	public void copyFrom(Affiliation oldPLayer, ServerPlayer serverPlayer) {
-		this.affiliation = oldPLayer.getAffiliation();
+	public void copyFrom(Affiliation source, ServerPlayer serverPlayer) {
+		this.affiliation = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 

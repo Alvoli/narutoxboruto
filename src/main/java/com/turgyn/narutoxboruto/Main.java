@@ -25,7 +25,6 @@ public class Main {
 		modEventBus.addListener(this::commonSetup);
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new ClientEvents());
-
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {

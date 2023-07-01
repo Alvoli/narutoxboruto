@@ -4,9 +4,11 @@ import com.turgyn.narutoxboruto.networking.ModPacketHandler;
 import com.turgyn.narutoxboruto.networking.SyncSummoning;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import static com.turgyn.narutoxboruto.capabilities.CapabilityProvider.SHINOBI_POINTS;
 
+@AutoRegisterCapability
 public class Summoning {
 	public final int MAX_VALUE = 300;
 
@@ -32,7 +34,7 @@ public class Summoning {
 	}
 
 	public void copyFrom(Summoning source, ServerPlayer serverPlayer) {
-		this.value = source.value;
+		this.value = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 
