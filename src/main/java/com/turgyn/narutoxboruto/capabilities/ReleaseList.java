@@ -1,27 +1,29 @@
 package com.turgyn.narutoxboruto.capabilities;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class ReleaseList {
-	private String release = "";
+	private String releaseList = "";
 
 	public String getList() {
-		return release;
+		return releaseList;
 	}
 
-	public void updateReleaseList(String release) {
-		this.release = this.release.concat(release);
+	public void updateReleaseList(String releaseList) {
+		this.releaseList = this.releaseList.concat(releaseList);
 	}
 
 	public void copyFrom(ReleaseList source) {
-		this.release = source.release;
+		this.releaseList = source.getList();
 	}
 
 	public void saveNBTData(CompoundTag nbt) {
-		nbt.putString("release", release);
+		nbt.putString("releaseList", releaseList);
 	}
 
 	public void loadNBTData(CompoundTag nbt) {
-		release = nbt.getString("release");
+		releaseList = nbt.getString("releaseList");
 	}
 }

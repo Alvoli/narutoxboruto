@@ -31,5 +31,4 @@ public class NatureReleaseItem extends Item {
 		}
 		return super.use(pLevel, pPlayer, pUsedHand);
 	}
-
 }

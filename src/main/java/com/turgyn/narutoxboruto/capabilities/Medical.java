@@ -1,12 +1,14 @@
 package com.turgyn.narutoxboruto.capabilities;
 
-import com.turgyn.narutoxboruto.networking.SyncMedical;
 import com.turgyn.narutoxboruto.networking.ModPacketHandler;
+import com.turgyn.narutoxboruto.networking.SyncMedical;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
 import static com.turgyn.narutoxboruto.capabilities.CapabilityProvider.SHINOBI_POINTS;
 
+@AutoRegisterCapability
 public class Medical {
 	public final int MAX_VALUE = 500;
 
@@ -33,7 +35,7 @@ public class Medical {
 	}
 
 	public void copyFrom(Medical source, ServerPlayer serverPlayer) {
-		this.value = source.value;
+		this.value = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 

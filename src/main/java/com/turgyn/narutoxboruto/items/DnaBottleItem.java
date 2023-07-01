@@ -1,6 +1,7 @@
 package com.turgyn.narutoxboruto.items;
 
 import com.turgyn.narutoxboruto.capabilities.CapabilityProvider;
+import com.turgyn.narutoxboruto.util.ModUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.apache.commons.lang3.StringUtils;
 
-import static com.turgyn.narutoxboruto.items.ModItems.*;
 import static com.turgyn.narutoxboruto.util.ModUtil.getNewRelease;
 
 public class DnaBottleItem extends Item {
@@ -27,9 +27,8 @@ public class DnaBottleItem extends Item {
 		super(properties);
 	}
 
-	public void giveLoot(LivingEntity pLivingEntity) {
-		//todo KG
-		if (pLivingEntity.getRandom().nextBoolean()) { //50%
+	protected void giveLoot(LivingEntity pLivingEntity) {
+		if (pLivingEntity.getRandom().nextBoolean()) {
 			if (pLivingEntity instanceof ServerPlayer serverPlayer) {
 				Item release = getRelease();
 				serverPlayer.getCapability(CapabilityProvider.RELEASE_LIST).ifPresent(releaseList -> {

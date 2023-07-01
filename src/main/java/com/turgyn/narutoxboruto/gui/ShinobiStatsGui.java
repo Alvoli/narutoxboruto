@@ -55,37 +55,40 @@ public class ShinobiStatsGui extends Screen {
 	public void renderInfo(PoseStack pPoseStack) {
 		for (int l = 0; l < this.statList.length; ++l) {
 			if (!this.statList[l].isBlank()) {
-				if(l<10){
-					drawIntStat(pPoseStack,  l, 0, 0);
-				}else if (l<13){
-					drawStringStat(pPoseStack,l);
+				if (l < 10) {
+					drawIntStat(pPoseStack, l, 0, 0);
+				}
+				else if (l < 13) {
+					drawStringStat(pPoseStack, l);
 					switch (l) {
 						case 10 -> drawIcon(pPoseStack, 147, 9, l);
 						case 11 -> drawIcon(pPoseStack, 120, 11, l);
 					}
-				}else{
-					drawIntStat(pPoseStack,l,-1, 101);
+				}
+				else {
+					drawIntStat(pPoseStack, l, -1, 101);
 				}
 			}
 		}
 	}
 
 	private void drawIntStat(PoseStack pPoseStack, int index, int yOffset, int xOffset) {
-		String value = this.lockedList.contains(index)? "-" : String.valueOf(this.valueIntList[index]);
+		String value = this.lockedList.contains(index) ? "-" : String.valueOf(this.valueIntList[index]);
 		this.font.draw(pPoseStack, Component.translatable("stat.narutoxboruto." + this.statList[index]).append(": "),
-				(float) ((this.width - 192) / 2 - 5) + xOffset, (float) (this.height / 2 - 79 + (index + yOffset) * 12), 0);
-		this.font.draw(pPoseStack, Component.literal(value),
-				(float) ((this.width - 192) / 2 + 72 + xOffset), (float) (this.height / 2 - 79 + (index + yOffset) * 12), 0);
+				(float) ((this.width - 192) / 2 - 5) + xOffset, (float) (this.height / 2 - 79 + (index + yOffset) * 12),
+				0);
+		this.font.draw(pPoseStack, Component.literal(value), (float) ((this.width - 192) / 2 + 72 + xOffset),
+				(float) (this.height / 2 - 79 + (index + yOffset) * 12), 0);
 	}
 
 	private void drawStringStat(PoseStack pPoseStack, int index) {
 		String spaces = index == 12 ? "" : "   ";
-		this.font.draw(pPoseStack, Component.translatable("stat.narutoxboruto." + this.statList[index]).append(": " + spaces)
-						.append(Component.translatable(
+		this.font.draw(pPoseStack, Component.translatable("stat.narutoxboruto." + this.statList[index])
+						.append(": " + spaces).append(Component.translatable(
 								this.statList[index] + ".narutoxboruto." + this.valueStringList[index - 10])),
 				(float) ((this.width - 192) / 2 + 95), (float) (this.height / 2 - 79 + (index - 10) * 12), 0);
-
 	}
+
 	private void drawIcon(PoseStack pPoseStack, int x, int size, int l) {
 		RenderSystem.setShaderTexture(0, new ResourceLocation(Main.MOD_ID,
 				"textures/" + this.statList[l] + "s/" + this.valueStringList[l - 10] + ".png"));

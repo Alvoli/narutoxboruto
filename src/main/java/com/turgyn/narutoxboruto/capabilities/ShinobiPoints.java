@@ -4,7 +4,9 @@ import com.turgyn.narutoxboruto.networking.ModPacketHandler;
 import com.turgyn.narutoxboruto.networking.SyncShinobiPoints;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class ShinobiPoints {
 	public final int MAX_VALUE = Integer.MAX_VALUE;
 
@@ -18,6 +20,7 @@ public class ShinobiPoints {
 		this.value = Math.min(this.value + add, MAX_VALUE);
 		this.syncValue(serverPlayer);
 	}
+
 	public void addValue(ServerPlayer serverPlayer) {
 		this.addValue(1, serverPlayer);
 	}
@@ -32,7 +35,7 @@ public class ShinobiPoints {
 	}
 
 	public void copyFrom(ShinobiPoints source, ServerPlayer serverPlayer) {
-		this.value = source.value;
+		this.value = source.getValue();
 		this.syncValue(serverPlayer);
 	}
 
