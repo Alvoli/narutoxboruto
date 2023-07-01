@@ -42,10 +42,31 @@ public class CapabilityEvents {
 	private static final List<String> AFF_LIST = Arrays.asList("cloud", "leaf", "mist", "rain", "sand", "sound",
 			"stone");
 
+	private static boolean taiFlag, kenFlag;
+
+
+	private static void doSpawnStuff(ServerPlayer serverPlayer) {
+
+		serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setClan(getRandomString(CLAN_LIST), serverPlayer));
+		serverPlayer.getCapability(AFFILIATION).ifPresent(
+				affiliation -> affiliation.setAffiliation(getRandomString(AFF_LIST), serverPlayer));
+		serverPlayer.getCapability(RANK).ifPresent(rank -> rank.setRank("academy", serverPlayer));
+		List<Item> newReleaseList = new ArrayList<>();
+		int l = 0;
+		while (l <= RANDOM.nextInt(3)) {
+			Item stack = null;
+			stack = getNewRelease();
+			if (!newReleaseList.contains(stack)) {
+				serverPlayer.addItem(stack.getDefaultInstance());
+				newReleaseList.add(stack);
+				l++;
+			}
+
 	@SubscribeEvent
 	public static void TEST_ONLY_DELETE_LATER(PlayerSleepInBedEvent event) {
 		if (event.getEntity() instanceof ServerPlayer) {
 			getNewRelease();
+
 		}
 	}
 

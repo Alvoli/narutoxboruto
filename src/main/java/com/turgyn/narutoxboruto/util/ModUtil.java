@@ -23,7 +23,7 @@ public class ModUtil {
 	}
 
 	public static Item getNewRelease() {
-		Item release = null;
+		Item stack = null;
 		switch (random.nextInt(12)) {
 			case 0, 1 -> release = EARTH_RELEASE.get();
 			case 2, 3 -> release = FIRE_RELEASE.get();
@@ -33,7 +33,7 @@ public class ModUtil {
 			case 10 -> release = YIN_RELEASE.get();
 			case 11 -> release = YANG_RELEASE.get();
 		}
-		return release;
+		return stack;
 	}
 
 	public static void sendClientMessage(ServerPlayer serverPlayer, String msg, String s, boolean b) {

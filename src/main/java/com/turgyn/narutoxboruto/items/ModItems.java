@@ -12,7 +12,7 @@ import static net.minecraftforge.registries.ForgeRegistries.ITEMS;
 public class ModItems {
 	public static final DeferredRegister<Item> MOD_ITEMS = create(ITEMS, Main.MOD_ID);
 
-	public static final RegistryObject<Item> TAB, EARTH_RELEASE, WIND_RELEASE, WATER_RELEASE, FIRE_RELEASE, LIGHTNING_RELEASE, YIN_RELEASE, YANG_RELEASE, DNA_BOTTLE, JUTSU_LEARNER;
+	public static final RegistryObject<Item> TAB, EARTH_RELEASE, WIND_RELEASE, WATER_RELEASE, FIRE_RELEASE, LIGHTNING_RELEASE, YIN_RELEASE, YANG_RELEASE,DNA_BOTTLE,JUTSU_LEARNER, FIRE_DNA, WIND_DNA;
 
 	static {
 		TAB = registerItem("tab");
@@ -24,7 +24,9 @@ public class ModItems {
 		YIN_RELEASE = registerNatureRelease("yin");
 		YANG_RELEASE = registerNatureRelease("yang");
 		DNA_BOTTLE = MOD_ITEMS.register("dna_bottle", () -> new DnaBottleItem(new Item.Properties()));
+		FIRE_DNA = MOD_ITEMS.register("fire_dna", () -> new FireDnaBottle(new Item.Properties()));
 		JUTSU_LEARNER = registerItem("jutsu_learner");
+		WIND_DNA = MOD_ITEMS.register("wind_dna", () -> new WindDnaBottle(new Item.Properties()));
 	}
 
 	private static RegistryObject<Item> registerItem(String name) {
