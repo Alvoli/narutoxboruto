@@ -24,18 +24,22 @@ public class ModItems {
 		YIN_RELEASE = registerNatureRelease("yin");
 		YANG_RELEASE = registerNatureRelease("yang");
 		DNA_BOTTLE = MOD_ITEMS.register("dna_bottle", () -> new DnaBottleItem(new Item.Properties()));
-		FIRE_DNA = MOD_ITEMS.register("fire_dna", () -> new FireDnaBottle(new Item.Properties()));
 		JUTSU_LEARNER = registerItem("jutsu_learner");
-		WIND_DNA = MOD_ITEMS.register("wind_dna", () -> new WindDnaBottle(new Item.Properties()));
-		EARTH_DNA = MOD_ITEMS.register("earth_dna", () -> new EarthDnaBottle(new Item.Properties()));
-		WATER_DNA = MOD_ITEMS.register("water_dna", () -> new WaterDnaBottle(new Item.Properties()));
-		YIN_DNA = MOD_ITEMS.register("yin_dna",() -> new YinDnaBottle(new Item.Properties()));
-		YANG_DNA = MOD_ITEMS.register("yang_dna", () -> new YangDnaBottle(new Item.Properties()));
-		LIGHTNING_DNA = MOD_ITEMS.register("lightning_dna", () -> new LightningDnaBottle(new Item.Properties()));
+		FIRE_DNA = registerDna("fire_dna", FIRE_RELEASE);
+		EARTH_DNA = registerDna("earth_dna", EARTH_RELEASE);
+		WIND_DNA = registerDna("wind_dna", WIND_RELEASE);
+		WATER_DNA = registerDna("water_dna", WATER_RELEASE);
+		YIN_DNA = registerDna("yin_dna", YIN_RELEASE);
+		YANG_DNA = registerDna("yang_dna",YANG_RELEASE);
+		LIGHTNING_DNA = registerDna("lightning_dna",LIGHTNING_RELEASE);
 	}
 
 	private static RegistryObject<Item> registerItem(String name) {
 		return MOD_ITEMS.register(name, () -> new Item(new Item.Properties()));
+	}
+
+	private static RegistryObject<Item> registerDna(String name, RegistryObject<Item> pRelease){
+		return MOD_ITEMS.register(name,()-> new ReleaseDnaBottleItem(new Item.Properties(),pRelease.getHolder().get().get()));
 	}
 
 	private static RegistryObject<Item> registerNatureRelease(String name) {
