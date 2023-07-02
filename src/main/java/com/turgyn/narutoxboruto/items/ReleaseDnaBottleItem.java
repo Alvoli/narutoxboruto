@@ -2,15 +2,16 @@ package com.turgyn.narutoxboruto.items;
 
 import net.minecraft.world.item.Item;
 
-public class ReleaseDnaBottleItem extends DnaBottleItem{
-    Item release;
-    public ReleaseDnaBottleItem(Properties properties, Item pRelease) {
-        super(properties);
-        this.release = pRelease;
-    }
+public class ReleaseDnaBottleItem extends DnaBottleItem {
+	private final Item pRelease;
 
-    @Override
-    public Item getRelease() {
-        return release;
-    }
+	public ReleaseDnaBottleItem(Properties properties, Item pRelease) {
+		super(properties);
+		this.pRelease = pRelease;
+	}
+
+	@Override
+	public Item getRelease() {
+		return pRelease;
+	}
 }

@@ -6,23 +6,14 @@ import com.turgyn.narutoxboruto.util.ModUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
@@ -42,33 +33,11 @@ public class CapabilityEvents {
 	private static final List<String> AFF_LIST = Arrays.asList("cloud", "leaf", "mist", "rain", "sand", "sound",
 			"stone");
 
-	private static boolean taiFlag, kenFlag;
-
-
-	private static void doSpawnStuff(ServerPlayer serverPlayer) {
-
-		serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setClan(getRandomString(CLAN_LIST), serverPlayer));
-		serverPlayer.getCapability(AFFILIATION).ifPresent(
-				affiliation -> affiliation.setAffiliation(getRandomString(AFF_LIST), serverPlayer));
-		serverPlayer.getCapability(RANK).ifPresent(rank -> rank.setRank("academy", serverPlayer));
-		List<Item> newReleaseList = new ArrayList<>();
-		int l = 0;
-		while (l <= RANDOM.nextInt(3)) {
-			Item stack = null;
-			stack = getNewRelease();
-			if (!newReleaseList.contains(stack)) {
-				serverPlayer.addItem(stack.getDefaultInstance());
-				newReleaseList.add(stack);
-				l++;
-			}
-		}
-
-	}
 	@SubscribeEvent
 	public static void TEST_ONLY_DELETE_LATER(PlayerSleepInBedEvent event) {
-		if (event.getEntity() instanceof ServerPlayer) {
-			getNewRelease();
-
+		if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+			givePlayerStatBonuses(serverPlayer);
+			msgPlayerInfo(serverPlayer);
 		}
 	}
 
@@ -79,11 +48,28 @@ public class CapabilityEvents {
 		}
 	}
 
-	private void givePlayerStatBonuses(ServerPlayer serverPlayer){
-		serverPlayer.getCapability(CLAN).ifPresent((clan)-> {
-			switch(clan.getValue()){
-				case "uzumaki" ->{
-
+	private static void givePlayerStatBonuses(ServerPlayer serverPlayer) {
+		serverPlayer.getCapability(CLAN).ifPresent((clan) -> {
+			switch (clan.getValue()) {
+				case "fuma" -> serverPlayer.getCapability(SHURIKENJUTSU).ifPresent(
+						(shurikenJutsu) -> shurikenJutsu.addValue(25, serverPlayer));
+				case "nara" -> {
+					serverPlayer.getCapability(NINJUTSU).ifPresent((kenjutsu) -> kenjutsu.addValue(15, serverPlayer));
+					serverPlayer.getCapability(SHURIKENJUTSU).ifPresent(
+							(medical) -> medical.addValue(10, serverPlayer));
+					serverPlayer.getCapability(KINJUTSU).ifPresent((kinjutsu) -> kinjutsu.addValue(5, serverPlayer));
+				}
+				case "shiin" -> serverPlayer.getCapability(KINJUTSU).ifPresent(
+						(kinjutsu) -> kinjutsu.addValue(15, serverPlayer));
+				case "shirogane" -> {
+					serverPlayer.getCapability(SUMMONING).ifPresent(
+							(shurikenJutsu) -> shurikenJutsu.addValue(20, serverPlayer));
+					serverPlayer.getCapability(NINJUTSU).ifPresent((ninjutsu) -> ninjutsu.addValue(10, serverPlayer));
+				}
+				case "uzumaki" -> {
+					serverPlayer.getCapability(NINJUTSU).ifPresent((ninjutsu) -> ninjutsu.addValue(15, serverPlayer));
+					serverPlayer.getCapability(MEDICAL).ifPresent((medical) -> medical.addValue(10, serverPlayer));
+					serverPlayer.getCapability(KENJUTSU).ifPresent((kenjutsu) -> kenjutsu.addValue(5, serverPlayer));
 				}
 			}
 		});
@@ -93,7 +79,7 @@ public class CapabilityEvents {
 	public static void onPlayerFirstJoin(EntityJoinLevelEvent event) {
 		if (!event.getLevel().isClientSide() && event.getEntity() instanceof ServerPlayer serverPlayer
 				&& ModUtil.getPlayerStat(serverPlayer, Stats.LEAVE_GAME) == 0) {
-			serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setClan(getRandomString(CLAN_LIST), serverPlayer));
+			serverPlayer.getCapability(CLAN).ifPresent(clan -> clan.setValue(getRandomString(CLAN_LIST), serverPlayer));
 			serverPlayer.getCapability(AFFILIATION).ifPresent(
 					affiliation -> affiliation.setAffiliation(getRandomString(AFF_LIST), serverPlayer));
 			serverPlayer.getCapability(RANK).ifPresent(rank -> rank.setRank("academy", serverPlayer));
@@ -172,7 +158,6 @@ public class CapabilityEvents {
 					.ifPresent(newCap -> newCap.copyFrom(oldCap, newPlayer)));
 			original.getCapability(TAIJUTSU).ifPresent(oldCap -> newPlayer.getCapability(TAIJUTSU)
 					.ifPresent(newCap -> newCap.copyFrom(oldCap, newPlayer)));
-			msgPlayerInfo(newPlayer);
 		}
 	}
 }

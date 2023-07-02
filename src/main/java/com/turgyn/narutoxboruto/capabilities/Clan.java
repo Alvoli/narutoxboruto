@@ -14,7 +14,7 @@ public class Clan {
 		return clan;
 	}
 
-	public void setClan(String clan, ServerPlayer serverPlayer) {
+	public void setValue(String clan, ServerPlayer serverPlayer) {
 		this.clan = clan;
 		this.syncValue(serverPlayer);
 	}
