@@ -12,7 +12,8 @@ import static net.minecraftforge.registries.ForgeRegistries.ITEMS;
 public class ModItems {
 	public static final DeferredRegister<Item> MOD_ITEMS = create(ITEMS, Main.MOD_ID);
 
-	public static final RegistryObject<Item> TAB, EARTH_RELEASE, WIND_RELEASE, WATER_RELEASE, FIRE_RELEASE, LIGHTNING_RELEASE, YIN_RELEASE, YANG_RELEASE, DNA_BOTTLE, JUTSU_LEARNER, FIRE_DNA, WIND_DNA, EARTH_DNA, WATER_DNA, YIN_DNA, YANG_DNA, LIGHTNING_DNA;
+	public static final RegistryObject<Item> TAB, EARTH_RELEASE, WIND_RELEASE, WATER_RELEASE, FIRE_RELEASE, LIGHTNING_RELEASE, YIN_RELEASE, YANG_RELEASE, DNA_BOTTLE, JUTSU_LEARNER, FIRE_DNA, WIND_DNA, EARTH_DNA, WATER_DNA, YIN_DNA, YANG_DNA, LIGHTNING_DNA,
+	EARTH_LEARNER, FIRE_LEARNER, WIND_LEARNER,WATER_LEARNER, YIN_LEARNER, YANG_LEARNER, LIGHTNING_LEARNER;
 
 	static {
 		TAB = registerItem("tab");
@@ -32,6 +33,13 @@ public class ModItems {
 		YIN_DNA = registerDna("yin_dna", YIN_RELEASE);
 		YANG_DNA = registerDna("yang_dna", YANG_RELEASE);
 		JUTSU_LEARNER = registerItem("jutsu_learner");
+		EARTH_LEARNER = registerLearner("earth_learner");
+		FIRE_LEARNER = registerLearner("fire_learner");
+		WATER_LEARNER = registerLearner("water_learner");
+		LIGHTNING_LEARNER = registerLearner("lightning_learner");
+		YIN_LEARNER = registerLearner("yin_learner");
+		YANG_LEARNER = registerLearner("yang_learner");
+		WIND_LEARNER = registerLearner("wind_learner");
 	}
 
 	private static RegistryObject<Item> registerDna(String name, RegistryObject<Item> release) {
@@ -45,6 +53,10 @@ public class ModItems {
 
 	private static RegistryObject<Item> registerNatureRelease(String name) {
 		return MOD_ITEMS.register(name, () -> new NatureReleaseItem(new Item.Properties()));
+	}
+
+	private static RegistryObject<Item> registerLearner(String name){
+		return MOD_ITEMS.register(name, () -> new JutsuLearner(new Item.Properties()));
 	}
 
 	public static void register(IEventBus eventBus) {

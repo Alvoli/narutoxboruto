@@ -40,7 +40,13 @@ public class ModTab {
 			event.accept(ModItems.YANG_DNA.get());
 			event.accept(ModItems.YIN_DNA.get());
 			event.accept(ModItems.LIGHTNING_DNA.get());
-
+			event.accept(ModItems.FIRE_LEARNER.get());
+			event.accept(ModItems.WATER_LEARNER.get());
+			event.accept(ModItems.EARTH_LEARNER.get());
+			event.accept(ModItems.WIND_LEARNER.get());
+			event.accept(ModItems.YIN_LEARNER.get());
+			event.accept(ModItems.YANG_LEARNER.get());
+			event.accept(ModItems.LIGHTNING_LEARNER.get());
 		}
 	}
 
